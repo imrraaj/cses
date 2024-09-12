@@ -174,8 +174,10 @@ async function main() {
             console.error(`Error processing message: ${err}`);
             await pool.sql`UPDATE submissions SET verdict = 'INTERNAL ERROR' WHERE id = ${data.id}`;
         } finally {
-            await fs.rmSync(path.join(__dirname, PREFIX), { recursive: true });
             ch1.ack(msg);
+            if(fs.existsSync(path.join(__dirname, PREFIX))) {
+                fs.rmSync(path.join(__dirname, PREFIX), { recursive: true });
+            }
         }
     });
 }
