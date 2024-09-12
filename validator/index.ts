@@ -155,14 +155,14 @@ async function main() {
         fs.mkdirSync(path.join(__dirname, PREFIX), { recursive: true });
 
         const inputTestdownloadPath = path.join(__dirname, `${PREFIX}/${problemId}.in`);
-        downloadFile(inputKey, inputTestdownloadPath);
+        console.log({ inputKey, inputTestdownloadPath });
+        await downloadFile(inputKey, inputTestdownloadPath);
 
         const outputTestdownloadPath = path.join(__dirname, `${PREFIX}/${problemId}.out`);
-        downloadFile(outputKey, outputTestdownloadPath);
+        await downloadFile(outputKey, outputTestdownloadPath);
 
         const userOutputFilePath = path.join(__dirname, `${PREFIX}/${problemId}.user.out`);
-
-
+        
         const ext = getExtension(language);
         const codePath = path.join(__dirname, PREFIX, `solution.${ext}`);
         fs.writeFileSync(codePath, code ?? "");
@@ -223,7 +223,7 @@ async function buildDockerImage() {
         await image.inspect();
     } catch (error) {
         console.log('Building Docker image');
-        await docker.buildImage(DOCKER_IMAGE, { t: DOCKER_IMAGE })
+        await docker.buildImage("./Dockerfile", { t: DOCKER_IMAGE })
     }
 }
 

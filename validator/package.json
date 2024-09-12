@@ -5,12 +5,16 @@
   "main": "index.js",
   "scripts": {
     "dev": "nodemon index.ts",
-    "build": "npx tsc"
+    "build": "npx tsc",
+    "serve": "npm run build && node index.js"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "@aws-sdk/types": "^3.649.0",
+    "@types/amqplib": "^0.10.5",
+    "@types/dockerode": "^3.3.31",
     "@types/node": "^20.14.9",
     "nodemon": "^3.1.4",
     "ts-node": "^10.9.2",
@@ -18,10 +22,10 @@
   },
   "dependencies": {
     "@aws-sdk/client-s3": "^3.609.0",
-    "@aws-sdk/types": "^3.609.0",
     "@vercel/postgres": "^0.9.0",
     "amqplib": "^0.10.4",
     "aws-sdk": "^2.1654.0",
+    "dockerode": "^4.0.2",
     "dotenv": "^16.4.5"
   }
 }
