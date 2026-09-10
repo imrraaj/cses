@@ -41,7 +41,7 @@ const s3 = new S3({
 
 /**
  * Download a file from S3
- *  
+ *
  * @param key The key of the file in the bucket
  * @param downloadPath The path to save the downloaded file
  */
@@ -112,7 +112,7 @@ async function executeCodeInDocker(language: string, problemId: string): Promise
 
     await container.start();
     const exitCode = await container.wait();
-    await container.logs({
+    container.logs({
         follow: true,
         stdout: true,
         stderr: true
@@ -129,10 +129,10 @@ async function executeCodeInDocker(language: string, problemId: string): Promise
 
 /**
  * Main function to consume messages from the QUEUE_NAME
- * 
- * The function downloads the input and output test files from S3, 
+ *
+ * The function downloads the input and output test files from S3,
  * the user's code is executed in a Docker container, and the output is compared with the expected output.
- * 
+ *
  */
 async function main() {
     const conn = await amqplib.connect(QUEUE_URL);
@@ -162,7 +162,7 @@ async function main() {
         await downloadFile(outputKey, outputTestdownloadPath);
 
         const userOutputFilePath = path.join(__dirname, `${PREFIX}/${problemId}.user.out`);
-        
+
         const ext = getExtension(language);
         const codePath = path.join(__dirname, PREFIX, `solution.${ext}`);
         fs.writeFileSync(codePath, code ?? "");
@@ -213,9 +213,9 @@ async function handleExecutionResult(submissionId: number, statusCode: number, u
 
 /**
  * Build the Docker image if it does not exist.
- * 
+ *
  * The Docker image is built from the Dockerfile in the current directory
- * 
+ *
  * @returns void
  */
 async function buildDockerImage() {
